@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <style>
+        body {
+            background-color: #fff;
+            /* Fundo branco */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .search-container {
+            text-align: center;
+            background-color: #fff;
+            /* Cor de fundo do contêiner do formulário */
+            border-radius: 24px;
+            /* Cantos arredondados do contêiner */
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* Sombra suave */
+            width: 400px;
+            /* Largura do contêiner, ajuste conforme necessário */
+        }
+        
+        .google-logo {
+            width: 272px;
+            /* Tamanho do logotipo do Google */
+            height: 92px;
+            /* Altura do logotipo do Google */
+            margin-bottom: 20px;
+            /* Espaço abaixo do logotipo */
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            border: 1px solid #dfe1e5;
+            /* Cor da borda do campo de pesquisa */
+            border-radius: 24px;
+            /* Cantos arredondados do campo de pesquisa */
+            overflow: hidden;
+            margin-bottom: 20px;
+            /* Espaço abaixo da barra de pesquisa */
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            /* Fundo transparente */
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .search-icons {
+            background-color: #f8f9fa;
+            /* Cor de fundo dos ícones */
+            padding: 10px;
+        }
+        
+        .search-icons img {
+            width: 20px;
+            /* Tamanho dos ícones */
+            margin-right: 10px;
+            /* Espaço entre os ícones */
+            cursor: pointer;
+        }
+        
+        .google-buttons input {
+            padding: 10px 24px;
+            border-radius: 24px;
+            /* Cantos arredondados dos botões */
+            border: none;
+            background-color: #f8f9fa;
+            /* Cor de fundo dos botões */
+            color: #3c4043;
+            /* Cor do texto dos botões */
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-right: 10px;
+            /* Espaço entre os botões */
+        }
+        
+        .google-buttons input:hover {
+            background-color: #f1f3f4;
+            /* Cor de fundo dos botões ao passar o mouse */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="search-container">
+        <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google Logo" class="google-logo">
+        <form action="https://google.com/search" method="GET">
+            <div class="search-bar">
+                <input type="text" name="q" class="search-input">
+                <div class="search-icons">
+                    <img src="https://www.gstatic.com/images/icons/material/system/1x/keyboard_voice_black_24dp.png" alt="Microfone" onclick="startSpeechRecognition()">
+                    <label for="search-by-image">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/image_search_black_24dp.png" alt="Pesquisar por imagem">
+                    </label>
+                    <input type="file" id="search-by-image" style="display: none;">
+                    <label for="insert-text">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/text_snippet_black_24dp.png" alt="Ferramenta de inserção de texto">
+                    </label>
+                    <input type="text" id="insert-text" style="display: none;">
+                </div>
+            </div>
+            <div class="google-buttons">
+                <input type="submit" value="Pesquisar no Google">
+                <input type="submit" value="Estou com sorte">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function startSpeechRecognition() {
+            const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+            recognition.lang = 'pt-BR';
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                document.querySelector('.search-input').value = transcript;
+            };
+            recognition.start();
+        }
+    </script>
+</body>
+
+</html>
